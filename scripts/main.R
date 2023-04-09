@@ -60,6 +60,7 @@ mypic <- lapply(temp, function(file) {
 })
 
 # Predict on new data
+newx <- do.call(rbind, lapply(mypic, `[`, 1:784))
 newx <- array_reshape(newx, c(15, 28, 28, 1))
 newy <- c(7,5,2,0,5,3,4,3,2,7,5,6,8,5,6)
 pred <- loaded_model %>% predict(newx) %>% k_argmax()
