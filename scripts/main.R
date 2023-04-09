@@ -1,6 +1,6 @@
 library(keras)
 library(EBImage)
-source("D:/RStudioLabs/TensorFlow/scripts/PrintPictures.R")
+source("../scripts/PrintPictures.R")
 
 # Load MNIST dataset
 mnist <- dataset_mnist()
@@ -44,14 +44,13 @@ model %>% evaluate(testx, testy)
 pred <- model %>% predict(testx) %>% k_argmax()
 prob <- model %>% predict(testx)
 
-save_model_hdf5(model, "D:/RStudioLabs/TensorFlow/model/my_MNIST_model.hdf5")
+save_model_hdf5(model, "../model/my_MNIST_model.hdf5")
 
 # Load saved model
-loaded_model <- load_model_hdf5('D:/RStudioLabs/TensorFlow/model/my_MNIST_model.hdf5')
+loaded_model <- load_model_hdf5('../model/my_MNIST_model.hdf5')
 
 # Load new data
-setwd("D:/RStudioLabs/TensorFlow/tests")
-temp <- list.files(pattern = "*.jpg")
+temp <- list.files(path = "../tests", pattern = "*.jpg")
 mypic <- lapply(temp, function(file) {
   img <- readImage(file)
   colorMode(img) <- Grayscale
@@ -59,8 +58,6 @@ mypic <- lapply(temp, function(file) {
   img <- resize(img, 28, 28)
   img <- array_reshape(img, c(28,28,3))
 })
-
-PrintPictures
 
 # Predict on new data
 newx <- array_reshape(newx, c(15, 28, 28, 1))
@@ -72,3 +69,5 @@ table_values <- table(Predicted = as.vector(pred), Actual = as.vector(newy))
 table_values 
 (diag(table_values))
 
+
+getwd()
