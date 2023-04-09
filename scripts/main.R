@@ -68,6 +68,3 @@ pred <- loaded_model %>% predict(newx) %>% k_argmax()
 table_values <- table(Predicted = as.vector(pred), Actual = as.vector(newy))
 table_values 
 (diag(table_values))
-
-
-getwd()
